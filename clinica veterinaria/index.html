@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Clínica Veterinária</title>
+  <link rel="stylesheet" href="styless.css" />
+</head>
+<body>
+  <h1>Clínica Veterinária</h1>
+
+  <div class="container">
+    <div class="section">
+      <h2>🐾 Animais</h2>
+      <button onclick="mostrarTodosAnimais()">📋 Ver todos os animais</button>
+      <button onclick="abrirModalAnimal()">➕ Cadastrar animal</button>
+      <button onclick="abrirModalDeletarAnimal()">🗑️ Deletar animal</button>
+    </div>
+
+    <div class="section">
+      <h2>👤 Usuários</h2>
+      <button onclick="mostrarTodosUsuarios()">📋 Ver todos os usuários</button>
+      <button onclick="abrirModalUsuario()">➕ Cadastrar usuário</button>
+    </div>
+
+    <div class="section">
+      <h2>🩺 Doutores</h2>
+      <button onclick="mostrarTodosDoutores()">📋 Ver todos os doutores</button>
+      <button onclick="abrirModalDoutor()">➕ Cadastrar doutor</button>
+    </div>
+
+    <div class="section">
+      <h2>📅 Consultas</h2>
+      <button onclick="mostrarTodasConsultas()">📋 Ver todas as consultas</button>
+      <button onclick="abrirModalConsulta()">➕ Marcar consulta</button>
+    </div>
+
+    <div id="output">Resultado aparecerá aqui...</div>
+  </div>
+
+  <!-- Modais -->
+
+  <!-- Modal Animal -->
+  <div id="modalAnimal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="fecharModalAnimal()">&times;</span>
+      <h2>Cadastrar Animal</h2>
+      <form id="formAnimal" onsubmit="return enviarAnimal(event)">
+        <label for="nomeAnimal">Nome:</label>
+        <input type="text" id="nomeAnimal" name="nomeAnimal" required />
+        <label for="racaAnimal">Raça:</label>
+        <input type="text" id="racaAnimal" name="racaAnimal" required />
+        <label for="dataNascimentoAnimal">Data de Nascimento:</label>
+        <input type="date" id="dataNascimentoAnimal" name="dataNascimentoAnimal" required />
+        <button type="submit" class="btn-submit">Cadastrar</button>
+        <button type="button" class="btn-cancel" onclick="fecharModalAnimal()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Deletar Animal -->
+  <div id="modalDeletarAnimal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="fecharModalDeletarAnimal()">&times;</span>
+      <h2>Deletar Animal</h2>
+      <form id="formDeletarAnimal" onsubmit="return enviarDeletarAnimal(event)">
+        <label for="idDeletarAnimal">ID do Animal:</label>
+        <input type="text" id="idDeletarAnimal" name="idDeletarAnimal" required />
+        <button type="submit" class="btn-submit">Deletar</button>
+        <button type="button" class="btn-cancel" onclick="fecharModalDeletarAnimal()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Usuário -->
+  <div id="modalUsuario" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="fecharModalUsuario()">&times;</span>
+      <h2>Cadastrar Usuário</h2>
+      <form id="formUsuario" onsubmit="return enviarUsuario(event)">
+        <label for="nomeUsuario">Nome:</label>
+        <input type="text" id="nomeUsuario" name="nomeUsuario" required />
+        <label for="emailUsuario">Email:</label>
+        <input type="email" id="emailUsuario" name="emailUsuario" required />
+        <label for="senhaUsuario">Senha:</label>
+        <input type="password" id="senhaUsuario" name="senhaUsuario" required />
+        <label for="animalUsuario">Animal:</label>
+        <select id="animalUsuario" name="animalUsuario" required></select>
+        <button type="submit" class="btn-submit">Cadastrar</button>
+        <button type="button" class="btn-cancel" onclick="fecharModalUsuario()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Doutor -->
+  <div id="modalDoutor" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="fecharModalDoutor()">&times;</span>
+      <h2>Cadastrar Doutor</h2>
+      <form id="formDoutor" onsubmit="return enviarDoutor(event)">
+        <label for="nomeDoutor">Nome:</label>
+        <input type="text" id="nomeDoutor" name="nomeDoutor" required />
+        <label for="emailDoutor">Email:</label>
+        <input type="email" id="emailDoutor" name="emailDoutor" required />
+        <label for="senhaDoutor">Senha:</label>
+        <input type="password" id="senhaDoutor" name="senhaDoutor" required />
+        <button type="submit" class="btn-submit">Cadastrar</button>
+        <button type="button" class="btn-cancel" onclick="fecharModalDoutor()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Consulta -->
+  <div id="modalConsulta" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="fecharModalConsulta()">&times;</span>
+      <h2>Marcar Consulta</h2>
+      <form id="formConsulta" onsubmit="return enviarConsulta(event)">
+        <label for="usuarioConsulta">Usuário:</label>
+        <select id="usuarioConsulta" name="usuarioConsulta" required></select>
+        <label for="animalConsulta">Animal:</label>
+        <select id="animalConsulta" name="animalConsulta" required></select>
+        <label for="doutorConsulta">Doutor:</label>
+        <select id="doutorConsulta" name="doutorConsulta" required></select>
+        <label for="motivoConsulta">Motivo da Consulta:</label>
+        <textarea id="motivoConsulta" name="motivoConsulta" rows="3" required></textarea>
+        <button type="submit" class="btn-submit">Marcar</button>
+        <button type="button" class="btn-cancel" onclick="fecharModalConsulta()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="veterinaria.js"></script>
+</body>
+</html>
